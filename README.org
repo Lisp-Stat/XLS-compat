@@ -1,0 +1,49 @@
+* X-Lisp Statistics (XLS)
+
+This is an incomplete, undocumented, port of parts of XLisp-Stat to
+Common Lisp. It is intended as a way to ease porting of existing XLS
+code to the new version of Lisp-Stat.
+
+In most cases, XLS will depend on certain package from CLS, but never
+the other way around. This allows us to test new ideas and code here
+before deciding whether to move them to CLS.
+
+As an example: the LS version of SELECT is an enhanced and
+generalised selection package. Its method signature is slightly
+different. In using LS:SELECT here, we have modified the XLS code to
+use the new signature.
+
+** Porting Notes
+
+*** Iteration
+    XLisp-Stat lacked a looping constructing, and most iterations are
+    done with map-elements.  Although a version of map-elements is
+    supplied here, we suggest rewriting the code using iterate,
+    ideally, or CL mapping constructs if you prefer ~map~.
+
+*** Objects
+    The early attempts to provide compatibility used lsobjects.lsp to
+    provide an object layer similar to ~flavors~, that XLISP used.
+    This was a message passing style.  This was, we think, to provide
+    backward compability for existing XLisp-Stat code.  We do not
+    believe this to be worth the effort to maintain, as porting from
+    XLisp-Stat style objects to CLOS is relatively straightforward.
+
+*** Tests
+    Not a great deal of effort goes into resolving the warnings
+    produced by compilation of code and tests.  The tests *are*
+    expected to all run successfully.
+
+
+* Debugging Hints
+A commonly useful shortcut is C-c ~ in Lisp source files, which
+switches the REPL to the directory of the file and the effective
+package at point.
+
+https://stackoverflow.com/questions/21064113/how-to-specify-element-type-in-vector-of-sbcl-or-common-lisp
+
+To compile a function with maximum debugging, set a (break) somewhere
+in the function and then recompile with C-u C-c C-c
+
+https://www.reddit.com/r/lisp/comments/1q42pc/is_it_possible_to_debug_in_slime_like_other/
+

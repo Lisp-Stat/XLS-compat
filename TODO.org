@@ -1,0 +1,3 @@
+* TODO Models
+
+** Port the linear regression model to Lisp-Stat
